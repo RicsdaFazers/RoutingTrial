@@ -1,0 +1,1278 @@
+node n1 {
+    type router
+    model router
+    network-config {
+	hostname R-A
+	!
+	interface eth0
+	 ip address 192.168.0.1/30
+	!
+	interface eth1
+	 ip address 192.168.0.30/30
+	!
+	interface eth2
+	 ip address 10.4.0.1/17
+	!
+    }
+    canvas c1
+    iconcoords {611.0 249.0}
+    labelcoords {611.0 281.0}
+    interface-peer {eth2 n8}
+    interface-peer {eth1 n5}
+    interface-peer {eth0 n2}
+    custom-config {
+	custom-config-id service:zebra
+	custom-command zebra
+	config {
+	files=('/usr/local/etc/quagga/Quagga.conf', 'quaggaboot.sh', '/usr/local/etc/quagga/vtysh.conf', )
+	}
+    }
+    custom-config {
+	custom-config-id service:zebra:/usr/local/etc/quagga/Quagga.conf
+	custom-command /usr/local/etc/quagga/Quagga.conf
+	config {
+	interface eth0
+		ip adress 192.168.0.1/30
+	!
+	
+	interface eth1
+		ip adress 192.168.0.30/30
+	!
+	
+	interface eth2
+		ip adress 10.4.0.1/17
+	!
+	
+	ip route 10.4.128.0/18 192.168.0.2
+	ip route 10.4.192.0/19 192.168.0.2
+	ip route 10.4.224.0/20 192.168.0.2
+	ip route 10.4.240.0/21 192.168.0.29
+	ip route 10.4.248.0/21 192.168.0.29
+	}
+    }
+    services {zebra vtysh IPForward}
+}
+
+node n2 {
+    type router
+    model router
+    network-config {
+	hostname R-B
+	!
+	interface eth2
+	!
+	interface eth1
+	 ip address 192.168.0.5/30
+	!
+	interface eth0
+	 ip address 192.168.0.2/30
+	!
+    }
+    canvas c1
+    iconcoords {414.0 344.0}
+    labelcoords {414.0 376.0}
+    interface-peer {eth0 n1}
+    interface-peer {eth1 n3}
+    custom-config {
+	custom-config-id service:zebra
+	custom-command zebra
+	config {
+	files=('/usr/local/etc/quagga/Quagga.conf', 'quaggaboot.sh', '/usr/local/etc/quagga/vtysh.conf', )
+	}
+    }
+    custom-config {
+	custom-config-id service:zebra:/usr/local/etc/quagga/Quagga.conf
+	custom-command /usr/local/etc/quagga/Quagga.conf
+	config {
+	interface eth0
+		ip address 192.168.0.2/30
+	!
+	
+	interface eth1
+		ip address 192.168.0.5/30
+	!
+	
+	interface eth2
+		ip address 10.4.128.1/18
+		ip address 10.4.224.1/20
+	!
+	
+	ip route 10.4.0.0/17 192.168.0.1
+	ip route 10.4.192.0/19 192.168.0.6
+	ip route 10.4.240.0/21 192.168.0.1
+	ip route 10.4.248.0/21 192.168.0.1
+	}
+    }
+    services {zebra vtysh IPForward}
+    interface-peer {eth2 n9}
+}
+
+node n3 {
+    type router
+    model router
+    network-config {
+	hostname R-C
+	!
+	interface eth1
+	 ip address 192.168.0.9/30
+	!
+	interface eth0
+	 ip address 192.168.0.6/30
+	!
+	interface eth2
+	 ip address 10.4.192.1/19
+	!
+    }
+    canvas c1
+    iconcoords {471.0 476.0}
+    labelcoords {471.0 508.0}
+    interface-peer {eth2 n10}
+    interface-peer {eth0 n2}
+    interface-peer {eth1 n6}
+    custom-config {
+	custom-config-id service:zebra:/usr/local/etc/quagga/Quagga.conf
+	custom-command /usr/local/etc/quagga/Quagga.conf
+	config {
+	interface eth0
+		ip adress 192.168.0.6/30
+	!
+	
+	interface eth1
+		ip adress 192.168.0.9/30
+	!
+	
+	interface eth2
+		ip adress 10.4.192.1/19
+	!
+	
+	ip route 10.4.0.0/17 192.168.0.5
+	ip route 10.4.128.0/18 192.168.0.5
+	ip route 10.4.224.0/20 192.168.0.5
+	ip route 10.4.240.0/21 192.168.0.10
+	ip route 10.4.248.0/21 192.168.0.10
+	}
+    }
+    custom-config {
+	custom-config-id service:zebra
+	custom-command zebra
+	config {
+	dirs=('/usr/local/etc/quagga', '/var/run/quagga')
+	files=('/usr/local/etc/quagga/Quagga.conf', 'quaggaboot.sh', '/usr/local/etc/quagga/vtysh.conf')
+	startidx=35
+	cmdup=('sh quaggaboot.sh zebra',)
+	cmddown=('killall zebra',)
+	cmdval=('pidof zebra',)
+	meta=
+	starttime=
+	}
+    }
+}
+
+node n4 {
+    type router
+    model router
+    network-config {
+	hostname R-E
+	!
+	interface eth0
+	 ip address 192.168.0.14/30
+	!
+	interface eth1
+	 ip address 192.168.0.25/30
+	!
+	interface eth2
+	 ip address 10.4.248.1/21
+	!
+    }
+    canvas c1
+    iconcoords {759.0 467.0}
+    labelcoords {759.0 499.0}
+    interface-peer {eth2 n11}
+    interface-peer {eth1 n5}
+    interface-peer {eth0 n6}
+    custom-config {
+	custom-config-id service:zebra:/usr/local/etc/quagga/Quagga.conf
+	custom-command /usr/local/etc/quagga/Quagga.conf
+	config {
+	interface eth0
+		ip adress 192.168.0.14/30
+	!
+	
+	interface eth1
+		ip adress 192.168.0.25/30
+	!
+	
+	interface eth2
+		ip adress 10.4.248.1/21
+	!
+	
+	ip route 10.4.0.0/17 192.168.0.26
+	ip route 10.4.128.0/18 192.168.0.13
+	ip route 10.4.192.0/19 192.168.0.13
+	ip route 10.4.224.0/20 192.168.0.13
+	ip route 10.4.240.0/21 192.168.0.26
+	}
+    }
+    custom-config {
+	custom-config-id service:zebra
+	custom-command zebra
+	config {
+	dirs=('/usr/local/etc/quagga', '/var/run/quagga')
+	files=('/usr/local/etc/quagga/Quagga.conf', 'quaggaboot.sh', '/usr/local/etc/quagga/vtysh.conf')
+	startidx=35
+	cmdup=('sh quaggaboot.sh zebra',)
+	cmddown=('killall zebra',)
+	cmdval=('pidof zebra',)
+	meta=
+	starttime=
+	}
+    }
+}
+
+node n5 {
+    type router
+    model router
+    network-config {
+	hostname R-D
+	!
+	interface eth2
+	 ip address 192.168.0.22/30
+	!
+	interface eth0
+	 ip address 192.168.0.26/30
+	!
+	interface eth1
+	 ip address 192.168.0.29/30
+	!
+	interface eth3
+	 ip address 10.4.240.1/21
+	!
+    }
+    canvas c1
+    iconcoords {811.0 340.0}
+    labelcoords {811.0 372.0}
+    interface-peer {eth3 n12}
+    interface-peer {eth1 n1}
+    interface-peer {eth0 n4}
+    interface-peer {eth2 n7}
+    custom-config {
+	custom-config-id service:zebra:/usr/local/etc/quagga/Quagga.conf
+	custom-command /usr/local/etc/quagga/Quagga.conf
+	config {
+	interface eth0
+		ip adress 192.168.0.26/30
+	!
+	
+	interface eth1
+		ip adress 192.168.0.29/30
+	!
+	
+	interface eth2
+		ip adress 192.168.0.22/30
+	!
+	
+	interface eth3
+		ip adress 10.4.240.1/21
+	!
+	
+	ip route 10.4.0.0/17 192.168.0.30
+	ip route 10.4.128.0/18 192.168.0.30
+	ip route 10.4.192.0/19 192.168.0.21
+	ip route 10.4.224.0/21 192.168.0.30
+	ip route 10.4.248.0/21 192.168.0.25
+	}
+    }
+    custom-config {
+	custom-config-id service:zebra
+	custom-command zebra
+	config {
+	dirs=('/usr/local/etc/quagga', '/var/run/quagga')
+	files=('/usr/local/etc/quagga/Quagga.conf', 'quaggaboot.sh', '/usr/local/etc/quagga/vtysh.conf')
+	startidx=35
+	cmdup=('sh quaggaboot.sh zebra',)
+	cmddown=('killall zebra',)
+	cmdval=('pidof zebra',)
+	meta=
+	starttime=
+	}
+    }
+}
+
+node n6 {
+    type router
+    model router
+    network-config {
+	hostname R-2
+	!
+	interface eth1
+	 ip address 192.168.0.13/30
+	!
+	interface eth2
+	 ip address 192.168.0.17/30
+	!
+	interface eth0
+	 ip address 192.168.0.10/30
+	!
+    }
+    canvas c1
+    iconcoords {614.0 579.0}
+    labelcoords {614.0 611.0}
+    interface-peer {eth0 n3}
+    interface-peer {eth2 n7}
+    interface-peer {eth1 n4}
+    custom-config {
+	custom-config-id service:zebra:/usr/local/etc/quagga/Quagga.conf
+	custom-command /usr/local/etc/quagga/Quagga.conf
+	config {
+	interface eth0
+	  ip address 192.168.0.10/30
+	!
+	
+	interface eth1
+	  ip address 192.168.0.13/30  
+	!
+	
+	interface eth2
+	  ip address 192.168.0.17/30
+	!
+	
+	ip route 10.4.0.0/17 192.168.0.9
+	ip route 10.4.128.0/18 192.168.0.9
+	ip route 10.4.192.0/19 192.168.0.9
+	ip route 10.4.224.0/20 192.168.0.9
+	ip route 10.4.240.0/21 192.168.0.18
+	ip route 10.4.248.0/21 192.168.0.14
+	
+	}
+    }
+    custom-config {
+	custom-config-id service:zebra
+	custom-command zebra
+	config {
+	dirs=('/usr/local/etc/quagga', '/var/run/quagga')
+	files=('/usr/local/etc/quagga/Quagga.conf', 'quaggaboot.sh', '/usr/local/etc/quagga/vtysh.conf')
+	startidx=35
+	cmdup=('sh quaggaboot.sh zebra',)
+	cmddown=('killall zebra',)
+	cmdval=('pidof zebra',)
+	meta=
+	starttime=
+	}
+    }
+}
+
+node n7 {
+    type router
+    model router
+    network-config {
+	hostname R-1
+	!
+	interface eth1
+	 ip address 192.168.0.18/30
+	!
+	interface eth0
+	 ip address 192.168.0.21/30
+	!
+    }
+    canvas c1
+    iconcoords {615.0 385.0}
+    labelcoords {615.0 417.0}
+    interface-peer {eth0 n5}
+    interface-peer {eth1 n6}
+    custom-config {
+	custom-config-id service:zebra:/usr/local/etc/quagga/Quagga.conf
+	custom-command /usr/local/etc/quagga/Quagga.conf
+	config {
+	interface eth0
+	  ip address 192.168.0.21/30
+	!
+	
+	interface eth1
+	  ip address 192.168.0.18/30  
+	!
+	
+	ip route 10.4.0.0/17 192.168.0.22
+	ip route 10.4.128.0/18 192.168.0.17
+	ip route 10.4.192.0/19 192.168.0.17
+	ip route 10.4.224.0/20 192.168.0.17
+	ip route 10.4.240.0/21 192.168.0.22
+	ip route 10.4.248.0/21 192.168.0.22
+	
+	
+	}
+    }
+    custom-config {
+	custom-config-id service:zebra
+	custom-command zebra
+	config {
+	dirs=('/usr/local/etc/quagga', '/var/run/quagga')
+	files=('/usr/local/etc/quagga/Quagga.conf', 'quaggaboot.sh', '/usr/local/etc/quagga/vtysh.conf')
+	startidx=35
+	cmdup=('sh quaggaboot.sh zebra',)
+	cmddown=('killall zebra',)
+	cmdval=('pidof zebra',)
+	meta=
+	starttime=
+	}
+    }
+}
+
+node n8 {
+    type hub
+    network-config {
+	hostname H-A
+	!
+    }
+    canvas c1
+    iconcoords {610.0 165.0}
+    labelcoords {610.0 189.0}
+    interface-peer {e0 n18}
+    interface-peer {e1 n17}
+    interface-peer {e2 n1}
+}
+
+node n10 {
+    type hub
+    network-config {
+	hostname H-C
+	!
+    }
+    canvas c1
+    iconcoords {412.0 586.0}
+    labelcoords {412.0 610.0}
+    interface-peer {e0 n3}
+    interface-peer {e1 n14}
+    interface-peer {e2 n20}
+}
+
+node n11 {
+    type hub
+    network-config {
+	hostname H-E
+	!
+    }
+    canvas c1
+    iconcoords {827.0 581.0}
+    labelcoords {827.0 605.0}
+    interface-peer {e0 n4}
+    interface-peer {e1 n15}
+    interface-peer {e2 n21}
+}
+
+node n12 {
+    type hub
+    network-config {
+	hostname H-D
+	!
+    }
+    canvas c1
+    iconcoords {967.0 338.0}
+    labelcoords {967.0 362.0}
+    interface-peer {e0 n5}
+    interface-peer {e1 n22}
+    interface-peer {e2 n16}
+}
+
+node n13 {
+    type router
+    model host
+    network-config {
+	hostname H-1-B1
+	!
+	interface eth0
+	!
+    }
+    canvas c1
+    iconcoords {144.0 206.0}
+    labelcoords {144.0 238.0}
+    custom-config {
+	custom-config-id service:FTP
+	custom-command FTP
+	config {
+	dirs=('/var/run/vsftpd/empty', '/var/ftp')
+	files=('vsftpd.conf',)
+	startidx=80
+	cmdup=('vsftpd ./vsftpd.conf',)
+	cmddown=('killall vsftpd',)
+	cmdval=('pidof vsftpd',)
+	meta=
+	starttime=
+	}
+    }
+    custom-config {
+	custom-config-id service:HTTP
+	custom-command HTTP
+	config {
+	dirs=('/etc/apache2', '/var/run/apache2', '/var/log/apache2', '/var/lock/apache2', '/var/www')
+	files=('/etc/apache2/apache2.conf', '/etc/apache2/envvars', '/var/www/index.html')
+	startidx=80
+	cmdup=('apache2ctl start',)
+	cmddown=('apache2ctl stop',)
+	cmdval=('pidof apache2',)
+	meta=
+	starttime=
+	}
+    }
+    interface-peer {eth0 n9}
+    services {DefaultRoute DHCPClient}
+}
+
+node n14 {
+    type router
+    model host
+    network-config {
+	hostname H-1-C
+	!
+	interface eth0
+	 ip address 10.4.192.2/19
+	!
+    }
+    canvas c1
+    iconcoords {320.0 677.0}
+    labelcoords {320.0 709.0}
+    interface-peer {eth0 n10}
+    custom-config {
+	custom-config-id service:HTTP
+	custom-command HTTP
+	config {
+	files=('/etc/apache2/apache2.conf', '/etc/apache2/envvars', '/var/www/index.html', )
+	cmdup=('mkdir -p /run/lock', 'mkdir -p /var/log/apache2', 'apache2ctl start', )
+	}
+    }
+    custom-config {
+	custom-config-id service:HTTP:/var/www/index.html
+	custom-command /var/www/index.html
+	config {
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	   <meta charset="UTF-8">
+	   <title>Formulario</title>
+	</head>
+	<body>
+	   <h1>Formulario de utilizador:</h1>
+	   <form action=* method="get" id="form1">
+		<label for="username">Username</label>
+		<input type="text" id="username" name="username">
+		<br></br>
+	    	<label for="password">Password</label>
+		<input type="password" id="password" name="password">
+	   </form>
+	   <button type="submit" form="form1" value="submit">Submit</button>
+	</body>
+	    
+	}
+    }
+    custom-config {
+	custom-config-id service:FTP
+	custom-command FTP
+	config {
+	dirs=('/var/run/vsftpd/empty', '/var/ftp')
+	files=('vsftpd.conf',)
+	startidx=80
+	cmdup=('vsftpd ./vsftpd.conf',)
+	cmddown=('killall vsftpd',)
+	cmdval=('pidof vsftpd',)
+	meta=
+	starttime=
+	}
+    }
+    services {DefaultRoute HTTP}
+}
+
+node n15 {
+    type router
+    model host
+    network-config {
+	hostname H-1-E
+	!
+	interface eth0
+	 ip address 10.4.248.2/21
+	!
+    }
+    canvas c1
+    iconcoords {735.0 669.0}
+    labelcoords {735.0 701.0}
+    interface-peer {eth0 n11}
+    custom-config {
+	custom-config-id service:FTP
+	custom-command FTP
+	config {
+	dirs=('/var/run/vsftpd/empty', '/var/ftp')
+	files=('vsftpd.conf',)
+	startidx=80
+	cmdup=('vsftpd ./vsftpd.conf',)
+	cmddown=('killall vsftpd',)
+	cmdval=('pidof vsftpd',)
+	meta=
+	starttime=
+	}
+    }
+    custom-config {
+	custom-config-id service:HTTP
+	custom-command HTTP
+	config {
+	dirs=('/etc/apache2', '/var/run/apache2', '/var/log/apache2', '/var/lock/apache2', '/var/www')
+	files=('/etc/apache2/apache2.conf', '/etc/apache2/envvars', '/var/www/index.html')
+	startidx=80
+	cmdup=('apache2ctl start',)
+	cmddown=('apache2ctl stop',)
+	cmdval=('pidof apache2',)
+	meta=
+	starttime=
+	}
+    }
+}
+
+node n16 {
+    type router
+    model host
+    network-config {
+	hostname H-2-D
+	!
+	interface eth0
+	 ip address 10.4.240.3/21
+	!
+    }
+    canvas c1
+    iconcoords {1090.0 397.0}
+    labelcoords {1090.0 429.0}
+    interface-peer {eth0 n12}
+    custom-config {
+	custom-config-id service:FTP
+	custom-command FTP
+	config {
+	dirs=('/var/run/vsftpd/empty', '/var/ftp')
+	files=('vsftpd.conf',)
+	startidx=80
+	cmdup=('vsftpd ./vsftpd.conf',)
+	cmddown=('killall vsftpd',)
+	cmdval=('pidof vsftpd',)
+	meta=
+	starttime=
+	}
+    }
+    custom-config {
+	custom-config-id service:HTTP
+	custom-command HTTP
+	config {
+	dirs=('/etc/apache2', '/var/run/apache2', '/var/log/apache2', '/var/lock/apache2', '/var/www')
+	files=('/etc/apache2/apache2.conf', '/etc/apache2/envvars', '/var/www/index.html')
+	startidx=80
+	cmdup=('apache2ctl start',)
+	cmddown=('apache2ctl stop',)
+	cmdval=('pidof apache2',)
+	meta=
+	starttime=
+	}
+    }
+}
+
+node n17 {
+    type router
+    model host
+    network-config {
+	hostname H-2-A
+	!
+	interface eth0
+	 ip address 10.4.0.3/17
+	!
+    }
+    canvas c1
+    iconcoords {719.0 77.0}
+    labelcoords {719.0 109.0}
+    interface-peer {eth0 n8}
+    custom-config {
+	custom-config-id service:FTP
+	custom-command FTP
+	config {
+	dirs=('/var/run/vsftpd/empty', '/var/ftp')
+	files=('vsftpd.conf',)
+	startidx=80
+	cmdup=('vsftpd ./vsftpd.conf',)
+	cmddown=('killall vsftpd',)
+	cmdval=('pidof vsftpd',)
+	meta=
+	starttime=
+	}
+    }
+    custom-config {
+	custom-config-id service:HTTP
+	custom-command HTTP
+	config {
+	dirs=('/etc/apache2', '/var/run/apache2', '/var/log/apache2', '/var/lock/apache2', '/var/www')
+	files=('/etc/apache2/apache2.conf', '/etc/apache2/envvars', '/var/www/index.html')
+	startidx=80
+	cmdup=('apache2ctl start',)
+	cmddown=('apache2ctl stop',)
+	cmdval=('pidof apache2',)
+	meta=
+	starttime=
+	}
+    }
+}
+
+node n18 {
+    type router
+    model host
+    network-config {
+	hostname H-1-A
+	!
+	interface eth0
+	 ip address 10.4.0.2/17
+	!
+    }
+    canvas c1
+    iconcoords {489.0 82.0}
+    labelcoords {489.0 114.0}
+    interface-peer {eth0 n8}
+    custom-config {
+	custom-config-id service:FTP
+	custom-command FTP
+	config {
+	dirs=('/var/run/vsftpd/empty', '/var/ftp')
+	files=('vsftpd.conf',)
+	startidx=80
+	cmdup=('vsftpd ./vsftpd.conf',)
+	cmddown=('killall vsftpd',)
+	cmdval=('pidof vsftpd',)
+	meta=
+	starttime=
+	}
+    }
+    custom-config {
+	custom-config-id service:HTTP
+	custom-command HTTP
+	config {
+	dirs=('/etc/apache2', '/var/run/apache2', '/var/log/apache2', '/var/lock/apache2', '/var/www')
+	files=('/etc/apache2/apache2.conf', '/etc/apache2/envvars', '/var/www/index.html')
+	startidx=80
+	cmdup=('apache2ctl start',)
+	cmddown=('apache2ctl stop',)
+	cmdval=('pidof apache2',)
+	meta=
+	starttime=
+	}
+    }
+}
+
+node n19 {
+    type router
+    model host
+    network-config {
+	hostname H-2-B1
+	!
+	interface eth0
+	 ip address 10.4.128.3/18
+	!
+    }
+    canvas c1
+    iconcoords {101.0 303.0}
+    labelcoords {101.0 335.0}
+    custom-config {
+	custom-config-id service:DHCP
+	custom-command DHCP
+	config {
+	files=('/etc/dhcp/dhcpd.conf', )
+	starttime=20
+	}
+    }
+    custom-config {
+	custom-config-id service:DHCP:/etc/dhcp/dhcpd.conf
+	custom-command /etc/dhcp/dhcpd.conf
+	config {
+	# auto-generated by DHCP service (utility.py)
+	# NOTE: move these option lines into the desired pool { } block(s) below
+	#option domain-name "test.com";
+	#option domain-name-servers 10.0.0.1;
+	#option routers 10.0.0.1;
+	
+	log-facility local6;
+	
+	default-lease-time 600;
+	max-lease-time 7200;
+	
+	ddns-update-style none;
+	
+	subnet 10.4.128.0 netmask 255.255.192.0 {
+	  pool {
+	    range 10.4.159.255 10.4.191.254;
+	    default-lease-time 600;
+	    option routers 10.4.128.1;
+	  }
+	}
+	
+	
+	}
+    }
+    custom-config {
+	custom-config-id service:FTP
+	custom-command FTP
+	config {
+	dirs=('/var/run/vsftpd/empty', '/var/ftp')
+	files=('vsftpd.conf',)
+	startidx=80
+	cmdup=('vsftpd ./vsftpd.conf',)
+	cmddown=('killall vsftpd',)
+	cmdval=('pidof vsftpd',)
+	meta=
+	starttime=
+	}
+    }
+    custom-config {
+	custom-config-id service:HTTP
+	custom-command HTTP
+	config {
+	dirs=('/etc/apache2', '/var/run/apache2', '/var/log/apache2', '/var/lock/apache2', '/var/www')
+	files=('/etc/apache2/apache2.conf', '/etc/apache2/envvars', '/var/www/index.html')
+	startidx=80
+	cmdup=('apache2ctl start',)
+	cmddown=('apache2ctl stop',)
+	cmdval=('pidof apache2',)
+	meta=
+	starttime=
+	}
+    }
+    interface-peer {eth0 n9}
+    services {DefaultRoute DHCP}
+}
+
+node n20 {
+    type router
+    model host
+    network-config {
+	hostname H-2-C
+	!
+	interface eth0
+	 ip address 10.4.192.3/19
+	!
+    }
+    canvas c1
+    iconcoords {508.0 677.0}
+    labelcoords {508.0 709.0}
+    interface-peer {eth0 n10}
+    custom-config {
+	custom-config-id service:FTP
+	custom-command FTP
+	config {
+	dirs=('/var/run/vsftpd/empty', '/var/ftp')
+	files=('vsftpd.conf',)
+	startidx=80
+	cmdup=('vsftpd ./vsftpd.conf',)
+	cmddown=('killall vsftpd',)
+	cmdval=('pidof vsftpd',)
+	meta=
+	starttime=
+	}
+    }
+    custom-config {
+	custom-config-id service:HTTP
+	custom-command HTTP
+	config {
+	dirs=('/etc/apache2', '/var/run/apache2', '/var/log/apache2', '/var/lock/apache2', '/var/www')
+	files=('/etc/apache2/apache2.conf', '/etc/apache2/envvars', '/var/www/index.html')
+	startidx=80
+	cmdup=('apache2ctl start',)
+	cmddown=('apache2ctl stop',)
+	cmdval=('pidof apache2',)
+	meta=
+	starttime=
+	}
+    }
+    services {DefaultRoute SSH}
+}
+
+node n21 {
+    type router
+    model host
+    network-config {
+	hostname H-2-E
+	!
+	interface eth0
+	 ip address 10.4.248.3/21
+	!
+    }
+    canvas c1
+    iconcoords {920.0 668.0}
+    labelcoords {920.0 700.0}
+    interface-peer {eth0 n11}
+    custom-config {
+	custom-config-id service:FTP
+	custom-command FTP
+	config {
+	dirs=('/var/run/vsftpd/empty', '/var/ftp')
+	files=('vsftpd.conf',)
+	startidx=80
+	cmdup=('vsftpd ./vsftpd.conf',)
+	cmddown=('killall vsftpd',)
+	cmdval=('pidof vsftpd',)
+	meta=
+	starttime=
+	}
+    }
+    custom-config {
+	custom-config-id service:HTTP
+	custom-command HTTP
+	config {
+	dirs=('/etc/apache2', '/var/run/apache2', '/var/log/apache2', '/var/lock/apache2', '/var/www')
+	files=('/etc/apache2/apache2.conf', '/etc/apache2/envvars', '/var/www/index.html')
+	startidx=80
+	cmdup=('apache2ctl start',)
+	cmddown=('apache2ctl stop',)
+	cmdval=('pidof apache2',)
+	meta=
+	starttime=
+	}
+    }
+}
+
+node n22 {
+    type router
+    model host
+    network-config {
+	hostname H-1-D
+	!
+	interface eth0
+	 ip address 10.4.240.2/21
+	!
+    }
+    canvas c1
+    iconcoords {1088.0 274.0}
+    labelcoords {1088.0 306.0}
+    interface-peer {eth0 n12}
+    custom-config {
+	custom-config-id service:FTP
+	custom-command FTP
+	config {
+	dirs=('/var/run/vsftpd/empty', '/var/ftp')
+	files=('vsftpd.conf',)
+	startidx=80
+	cmdup=('vsftpd ./vsftpd.conf',)
+	cmddown=('killall vsftpd',)
+	cmdval=('pidof vsftpd',)
+	meta=
+	starttime=
+	}
+    }
+    custom-config {
+	custom-config-id service:HTTP
+	custom-command HTTP
+	config {
+	dirs=('/etc/apache2', '/var/run/apache2', '/var/log/apache2', '/var/lock/apache2', '/var/www')
+	files=('/etc/apache2/apache2.conf', '/etc/apache2/envvars', '/var/www/index.html')
+	startidx=80
+	cmdup=('apache2ctl start',)
+	cmddown=('apache2ctl stop',)
+	cmdval=('pidof apache2',)
+	meta=
+	starttime=
+	}
+    }
+}
+
+node n24 {
+    type router
+    model host
+    network-config {
+	hostname H-1-B2
+	!
+	interface eth0
+	!
+    }
+    canvas c1
+    iconcoords {100.0 396.0}
+    labelcoords {100.0 428.0}
+    custom-config {
+	custom-config-id service:FTP
+	custom-command FTP
+	config {
+	dirs=('/var/run/vsftpd/empty', '/var/ftp')
+	files=('vsftpd.conf',)
+	startidx=80
+	cmdup=('vsftpd ./vsftpd.conf',)
+	cmddown=('killall vsftpd',)
+	cmdval=('pidof vsftpd',)
+	meta=
+	starttime=
+	}
+    }
+    custom-config {
+	custom-config-id service:HTTP
+	custom-command HTTP
+	config {
+	dirs=('/etc/apache2', '/var/run/apache2', '/var/log/apache2', '/var/lock/apache2', '/var/www')
+	files=('/etc/apache2/apache2.conf', '/etc/apache2/envvars', '/var/www/index.html')
+	startidx=80
+	cmdup=('apache2ctl start',)
+	cmddown=('apache2ctl stop',)
+	cmdval=('pidof apache2',)
+	meta=
+	starttime=
+	}
+    }
+    interface-peer {eth0 n9}
+    services {DefaultRoute DHCPClient}
+}
+
+node n25 {
+    type router
+    model host
+    network-config {
+	hostname H-2-B2
+	!
+	interface eth0
+	!
+    }
+    canvas c1
+    iconcoords {155.0 493.0}
+    labelcoords {155.0 525.0}
+    custom-config {
+	custom-config-id service:FTP
+	custom-command FTP
+	config {
+	dirs=('/var/run/vsftpd/empty', '/var/ftp')
+	files=('vsftpd.conf',)
+	startidx=80
+	cmdup=('vsftpd ./vsftpd.conf',)
+	cmddown=('killall vsftpd',)
+	cmdval=('pidof vsftpd',)
+	meta=
+	starttime=
+	}
+    }
+    custom-config {
+	custom-config-id service:HTTP
+	custom-command HTTP
+	config {
+	dirs=('/etc/apache2', '/var/run/apache2', '/var/log/apache2', '/var/lock/apache2', '/var/www')
+	files=('/etc/apache2/apache2.conf', '/etc/apache2/envvars', '/var/www/index.html')
+	startidx=80
+	cmdup=('apache2ctl start',)
+	cmddown=('apache2ctl stop',)
+	cmdval=('pidof apache2',)
+	meta=
+	starttime=
+	}
+    }
+    interface-peer {eth0 n9}
+    services {DefaultRoute DHCPClient}
+}
+
+node n9 {
+    type hub
+    network-config {
+	hostname H-B
+	!
+    }
+    canvas c1
+    iconcoords {286.0 343.0}
+    labelcoords {286.0 367.0}
+    interface-peer {e0 n2}
+    interface-peer {e1 n13}
+    interface-peer {e2 n19}
+    interface-peer {e3 n24}
+    interface-peer {e4 n25}
+}
+
+link l1 {
+    nodes {n8 n18}
+}
+
+link l2 {
+    nodes {n8 n17}
+}
+
+link l3 {
+    nodes {n8 n1}
+}
+
+link l9 {
+    nodes {n10 n3}
+}
+
+link l10 {
+    nodes {n10 n14}
+}
+
+link l11 {
+    nodes {n10 n20}
+}
+
+link l12 {
+    nodes {n11 n4}
+}
+
+link l13 {
+    nodes {n11 n15}
+}
+
+link l14 {
+    nodes {n11 n21}
+}
+
+link l15 {
+    nodes {n12 n5}
+}
+
+link l16 {
+    nodes {n12 n22}
+}
+
+link l17 {
+    nodes {n12 n16}
+}
+
+link l18 {
+    nodes {n5 n1}
+}
+
+link l19 {
+    nodes {n4 n5}
+}
+
+link l20 {
+    nodes {n7 n5}
+}
+
+link l21 {
+    nodes {n2 n1}
+}
+
+link l22 {
+    nodes {n2 n3}
+}
+
+link l23 {
+    nodes {n3 n6}
+}
+
+link l24 {
+    nodes {n7 n6}
+}
+
+link l25 {
+    nodes {n6 n4}
+}
+
+link l4 {
+    nodes {n9 n2}
+    bandwidth 0
+}
+
+link l5 {
+    nodes {n9 n13}
+    bandwidth 0
+}
+
+link l6 {
+    nodes {n9 n19}
+    bandwidth 0
+}
+
+link l7 {
+    nodes {n9 n24}
+    bandwidth 0
+}
+
+link l8 {
+    nodes {n9 n25}
+    bandwidth 0
+}
+
+annotation a5 {
+    iconcoords {681 518 975 742}
+    type oval
+    label {LAN-E}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {12}
+    color #cfcfff
+    width 0
+    border black
+    effects {bold}
+    canvas c1
+}
+
+annotation a4 {
+    iconcoords {909 227 1188 433}
+    type oval
+    label {LAN-D}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {12}
+    color #cfcfff
+    width 0
+    border black
+    effects {bold}
+    canvas c1
+}
+
+annotation a3 {
+    iconcoords {266 532 557 740}
+    type oval
+    label {LAN-C}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {12}
+    color #cfcfff
+    width 0
+    border black
+    effects {bold}
+    canvas c1
+}
+
+annotation a2 {
+    iconcoords {13 128 325 551}
+    type oval
+    label {LAN-B}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {12}
+    color #cfcfff
+    width 0
+    border black
+    effects {bold}
+    canvas c1
+}
+
+annotation a1 {
+    iconcoords {461 0 750 208}
+    type oval
+    label {LAN-A}
+    labelcolor #000000
+    fontfamily {Arial}
+    fontsize {12}
+    color #cfcfff
+    width 0
+    border black
+    effects {bold}
+    canvas c1
+}
+
+canvas c1 {
+    name {Canvas1}
+    refpt {0 0 47.5791667 -122.132322 2.0}
+    scale {150.0}
+    size {1204 750}
+}
+
+option global {
+    interface_names no
+    ip_addresses yes
+    ipv6_addresses yes
+    node_labels yes
+    link_labels yes
+    show_api no
+    background_images no
+    annotations yes
+    grid yes
+    traffic_start 0
+}
+
+option session {
+    controlnet=
+    enablerj45=1
+    enablesdt=0
+    preservedir=0
+}
+
